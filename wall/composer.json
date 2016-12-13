@@ -12,6 +12,7 @@
   },
   "autoload": {
     "psr-4": {
+      "Common\\": "wall/src/app/common",
       "Wall\\": "wall/src/ddd/Wall",
       "Test\\": "tests"
     }
