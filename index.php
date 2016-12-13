@@ -1,9 +1,9 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors','On');
+// This script is here created especially for poor hosting providers.
 
-require __DIR__ .'/wall/bootstrap.php';
-
-var_export($di);
+if (php_sapi_name() === 'cli') {
+    require_once __DIR__ . '/wall/src/bin/cli.php';
+} else {
+    require_once __DIR__ . '/wall/src/web/index.php';
+}
