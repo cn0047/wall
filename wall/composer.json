@@ -1,0 +1,19 @@
+{
+  "authors": [
+    {
+      "name": "Vladimir Kovpak",
+      "email": "cn007b@gmail.com",
+      "homepage": "http://cn007b.tumblr.com/",
+      "role": "PHP Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Wall\\": "wall/src/ddd/Wall",
+      "Test\\": "tests"
+    }
+  }
+}
