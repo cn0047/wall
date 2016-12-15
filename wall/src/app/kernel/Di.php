@@ -21,7 +21,7 @@ class Di
     {
     }
 
-    public static function getInstance():Di
+    public static function getInstance(): Di
     {
         if (static::$instance === null) {
             static::$config = require APP_DIR . '/src/app/config/config.php';

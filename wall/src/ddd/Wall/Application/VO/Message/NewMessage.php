@@ -5,15 +5,15 @@ namespace Wall\Application\VO\Message;
 use ValueObject\ValueObject;
 
 /**
- * @method integer getUserId
+ * @method string getUserId
  * @method string getMessage
  */
 class NewMessage extends ValueObject
 {
-    protected function getRules():array
+    protected function getRules(): array
     {
         return [
-            'userId' => ['NotBlank', 'Type' => ['type' => 'integer'],  'Range' => ['min' => 0]],
+            'userId' => ['NotBlank', 'Type' => ['type' => 'digit']],
             'message' => ['NotBlank', 'Type' => ['type' => 'string']],
         ];
     }

@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use ValueObject\Exception\ValidationException;
 
 try {
+
     if ($argc < 3) {
         throw new BadCommandCallException('You have to specify command and action.');
     }
@@ -17,6 +18,11 @@ try {
     $response = $handler->$action($argv);
 
     print $response->getBody();
+
 } catch (ValidationException $e) {
     printf('VALIDATION EXCEPTION: %s'.PHP_EOL, json_encode($e->getMessages()));
+} catch (\InvalidArgumentException $e) {
+    printf('INVALID ARGUMENT EXCEPTION: %s'.PHP_EOL, $e->getMessage());
+} catch (\Error $e) {
+    printf('Error: %s'.PHP_EOL, $e->getMessage());
 }

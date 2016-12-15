@@ -11,4 +11,14 @@ class Message
     private $message;
 
     private $createdAt;
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'userId' => $this->userId,
+            'message' => $this->message,
+            'createdAt' => $this->createdAt,
+        ];
+    }
 }

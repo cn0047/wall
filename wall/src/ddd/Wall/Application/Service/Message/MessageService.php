@@ -3,13 +3,15 @@
 namespace Wall\Application\Service\Message;
 
 use Kernel\Di;
+use Wall\Application\VO\Message\GetMessageById;
 use Wall\Application\VO\Message\NewMessage;
-use Wall\Domain\Model\Message\Entity\DAOInterface;
+use Wall\Domain\Model\Message\DTO\Message;
+use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
 
 class MessageService
 {
     /**
-     * @var DAOInterface $repository
+     * @var MessageRepositoryInterface $repository
      */
     private $repository;
 
@@ -18,13 +20,18 @@ class MessageService
         $this->init(Di::getInstance()->getPersistence('message'));
     }
 
-    final private function init(DAOInterface $repository)
+    final private function init(MessageRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    public function createSimpleMessage(NewMessage $vo):int
+    public function createSimpleMessage(NewMessage $vo): Message
     {
         return $this->repository->save($vo);
+    }
+
+    public function getMessageById(GetMessageById $vo)
+    {
+        return $this->repository->getMessageById($vo);
     }
 }
