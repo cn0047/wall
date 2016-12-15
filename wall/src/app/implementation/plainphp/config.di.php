@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $config = require APP_DIR . '/src/app/config/config.php';
 
 return [

@@ -1,0 +1,99 @@
+<html>
+<head>
+    <style>
+        .message {
+            padding: 5px;
+            margin: 2px;
+            border: 1px solid lightgray;
+            border-radius: 4px 4px;
+            display: inline-block;
+        }
+        .btnNewDlg {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button type="button" class="btn success btnNewDlg" data-toggle="modal" data-target="#newDlg">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <div class="modal fade" id="newDlg" tabindex="-1" role="dialog" aria-labelledby="">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="modal-body pull-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">discard</button>
+                        <button type="button" class="btn btn-primary" id="btnSaveNewMsg">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="doc">
+    </div>
+    <footer></footer>
+</body>
+<div id="template" class="hidden">
+    <div class="message">
+        <div class="body"></div>
+        <div class="foot">
+            <span class="date text-muted"></span>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js"></script>
+<!--<script src="/wall/src/web/js/implementation/jquery/app.js"></script>-->
+<script>
+
+    function renderMessage(message) {
+        $newDiv = $('#template .message').clone().removeClass('hidden');
+        $newDiv.find('div.body').html(message.message);
+        $newDiv.find('div.foot span.date').html(message.createdAt);
+        $newDiv.insertAfter($('body #doc'));
+    }
+
+    function render(collection) {
+        for (i in collection) {
+            renderMessage(collection[i]);
+        }
+    }
+
+    $(document).ready(function () {
+        $.getJSON('messages/get/', {limit: 20, offset: 0}, function (res) {
+            render(res);
+        });
+    });
+
+    $('#btnSaveNewMsg').click(function () {
+        $.ajax({
+            url: 'messages/create/',
+            dataType: 'json',
+            type: 'post',
+            data: {userId: 0, message: $('#newDlg textarea').val()},
+            success: function (res) {
+                $('#newDlg').modal('toggle');
+                renderMessage(res);
+                $('#newDlg textarea').val('');
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 400) {
+                    var errors = JSON.parse(xhr.responseText);
+                    for (i in errors) {
+                        $.growl(
+                            i + ' - ' + errors[i],
+                            {type: 'danger', position: {from: "top", align: "center"}, z_index: 9999}
+                        );
+                    }
+                }
+            }
+        });
+    });
+
+</script>
+</html>

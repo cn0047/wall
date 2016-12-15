@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PlainPHP\Command;
 
 use GuzzleHttp\Psr7\Response;
 use Kernel\Exception\InvalidArgument\InvalidIdArgumentException;
 use Kernel\Exception\InvalidArgument\InvalidMessageArgumentException;
 use Wall\Application\Service\Message\MessageService;
-use Wall\Application\VO\Message\NewMessage;
 use Wall\Application\VO\Message\GetMessageById;
+use Wall\Application\VO\Message\NewMessage;
 
 class Message
 {
@@ -41,10 +43,5 @@ class Message
         $message = (new MessageService())->getMessageById($vo);
 
         return $this->returnJsonResponse(200, $message->toArray());
-    }
-
-    public function get(array $request): Response
-    {
-
     }
 }
