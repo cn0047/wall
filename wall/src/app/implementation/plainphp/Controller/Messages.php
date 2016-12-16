@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace PlainPHP\Controller;
 
 use GuzzleHttp\Psr7\Response;
-use Kernel\Exception\InvalidArgument\InvalidIdArgumentException;
-use Kernel\Exception\InvalidArgument\InvalidMessageArgumentException;
 use Wall\Application\Service\Message\MessageService;
 use Wall\Application\VO\Message\GetMessageByCriteria;
-use Wall\Application\VO\Message\GetMessageById;
-use Wall\Application\VO\Message\NewMessage;
 
 class Messages
 {
@@ -21,8 +17,7 @@ class Messages
 
     public function create(): Response
     {
-        $vo = new NewMessage($_POST);
-        $message = (new MessageService())->createSimpleMessage($vo);
+        $message = (new MessageService())->createSimpleMessage(...array_values($_POST));
 
         return $this->returnJsonResponse(201, $message->toArray());
     }

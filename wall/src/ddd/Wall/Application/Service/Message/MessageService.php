@@ -8,7 +8,8 @@ use Kernel\Di;
 use Wall\Application\VO\Message\GetMessageByCriteria;
 use Wall\Application\VO\Message\GetMessageById;
 use Wall\Application\VO\Message\NewMessage;
-use Wall\Domain\Model\Message\DTO\Message;
+use Wall\Domain\Model\Message\DTO\Message as MessageDTO;
+use Wall\Domain\Service\CreateNewMessage;
 use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
 
 class MessageService
@@ -28,13 +29,20 @@ class MessageService
         $this->repository = $repository;
     }
 
-    public function createSimpleMessage(NewMessage $vo): Message
+    public function createSimpleMessage(string $userId, string $message): MessageDTO
     {
-        return $this->repository->save($vo);
+        $vo = new NewMessage([
+            'message' => $message,
+            'userId' => $userId ?? '0',
+        ]);
+
+        return (new CreateNewMessage())->execute($vo);
     }
 
-    public function getMessageById(GetMessageById $vo): Message
+    public function getMessageById(string $id): MessageDTO
     {
+        $vo = new GetMessageById(['id' => $id]);
+
         return $this->repository->getMessageById($vo);
     }
 

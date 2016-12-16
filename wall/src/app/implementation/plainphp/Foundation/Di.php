@@ -27,8 +27,9 @@ class Di
     {
         if (static::$instance === null) {
             static::$di = require APP_DIR . '/src/app/implementation/plainphp/config.di.php';
-            static::$instance = new static;
+            static::$instance = new static();
         }
+
         return static::$instance;
     }
 
@@ -38,6 +39,7 @@ class Di
             $closure = static::$di[$name];
             static::$services[$name] = $closure();
         }
+
         return static::$services[$name];
     }
 }

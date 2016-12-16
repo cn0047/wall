@@ -8,8 +8,6 @@ use GuzzleHttp\Psr7\Response;
 use Kernel\Exception\InvalidArgument\InvalidIdArgumentException;
 use Kernel\Exception\InvalidArgument\InvalidMessageArgumentException;
 use Wall\Application\Service\Message\MessageService;
-use Wall\Application\VO\Message\GetMessageById;
-use Wall\Application\VO\Message\NewMessage;
 
 class Message
 {
@@ -24,11 +22,7 @@ class Message
             throw new InvalidMessageArgumentException('You have to specify message text.');
         }
 
-        $vo = new NewMessage([
-            'userId' => $request[4] ?? '0',
-            'message' => $request[3],
-        ]);
-        $message = (new MessageService())->createSimpleMessage($vo);
+        $message = (new MessageService())->createSimpleMessage($request[4] ?? '0', $request[3]);
 
         return $this->returnJsonResponse(201, $message->toArray());
     }
@@ -39,8 +33,7 @@ class Message
             throw new InvalidIdArgumentException('You have to specify message id.');
         }
 
-        $vo = new GetMessageById(['id' => $request[3]]);
-        $message = (new MessageService())->getMessageById($vo);
+        $message = (new MessageService())->getMessageById($request[3]);
 
         return $this->returnJsonResponse(200, $message->toArray());
     }

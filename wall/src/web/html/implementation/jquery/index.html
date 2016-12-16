@@ -2,11 +2,22 @@
 <head>
     <style>
         .message {
-            padding: 5px;
-            margin: 2px;
-            border: 1px solid lightgray;
             border-radius: 4px 4px;
+            border: 1px solid white;
+            cursor: pointer;
             display: inline-block;
+            float: left;
+            margin: 2px;
+            padding: 15px 5px 5px 5px;
+        }
+        .message .date {
+            visibility: hidden;
+        }
+        .message:hover {
+            border: 1px solid lightgray;
+        }
+        .message:hover .date {
+            visibility: visible;
         }
         .btnNewDlg {
             margin: 2px;
@@ -40,7 +51,7 @@
     <div class="message">
         <div class="body"></div>
         <div class="foot">
-            <span class="date text-muted"></span>
+            <i><span class="date text-muted pull-right"></span></i>
         </div>
     </div>
 </div>
@@ -51,16 +62,26 @@
 <!--<script src="/wall/src/web/js/implementation/jquery/app.js"></script>-->
 <script>
 
-    function renderMessage(message) {
+    function initMessage(message) {
         $newDiv = $('#template .message').clone().removeClass('hidden');
         $newDiv.find('div.body').html(message.message);
         $newDiv.find('div.foot span.date').html(message.createdAt);
+        return $newDiv;
+    }
+
+    function renderMessageToTop(message) {
+        $newDiv = initMessage(message);
+        $newDiv.insertBefore($('body #doc'));
+    }
+
+    function renderMessageToBottom(message) {
+        $newDiv = initMessage(message);
         $newDiv.insertAfter($('body #doc'));
     }
 
     function render(collection) {
         for (i in collection) {
-            renderMessage(collection[i]);
+            renderMessageToTop(collection[i]);
         }
     }
 
@@ -78,7 +99,7 @@
             data: {userId: 0, message: $('#newDlg textarea').val()},
             success: function (res) {
                 $('#newDlg').modal('toggle');
-                renderMessage(res);
+                renderMessageToTop(res);
                 $('#newDlg textarea').val('');
             },
             error: function (xhr, status, error) {

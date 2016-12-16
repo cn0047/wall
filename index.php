@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // This script is here created especially for poor hosting providers.
 
 if (php_sapi_name() === 'cli') {

@@ -27,8 +27,9 @@ class Di
     {
         if (static::$instance === null) {
             static::$config = require APP_DIR . '/src/app/config/config.php';
-            static::$instance = new static;
+            static::$instance = new static();
         }
+
         return static::$instance;
     }
 
@@ -44,6 +45,7 @@ class Di
             $className = "Wall\\Infrastructure\\Persistence\\$persistence\\" . ucfirst($name);
             static::$persistences[$name] = new $className();
         }
+
         return static::$persistences[$name];
     }
 }

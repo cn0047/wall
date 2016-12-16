@@ -73,7 +73,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
         $sth = $pdo->prepare("
             SELECT id, userId, message, DATE_FORMAT(createdAt, '%d %b %y') AS createdAt
             FROM message
-            ORDER BY createdAt ASC
+            ORDER BY id DESC
             LIMIT $offset, $limit
         ");
         $sth->setFetchMode(\PDO::FETCH_ASSOC);
