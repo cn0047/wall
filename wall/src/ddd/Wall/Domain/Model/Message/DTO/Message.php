@@ -14,6 +14,13 @@ class Message
 
     private $createdAt;
 
+    public function __construct(array $properties)
+    {
+        foreach ($properties as $name => $value) {
+            $this->$name = $value;
+        }
+    }
+
     public function toArray(): array
     {
         return [

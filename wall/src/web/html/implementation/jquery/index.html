@@ -71,17 +71,17 @@
 
     function renderMessageToTop(message) {
         $newDiv = initMessage(message);
-        $newDiv.insertBefore($('body #doc'));
+        $("#doc").prepend($newDiv);
     }
 
     function renderMessageToBottom(message) {
         $newDiv = initMessage(message);
-        $newDiv.insertAfter($('body #doc'));
+        $("#doc").append($newDiv);
     }
 
     function render(collection) {
         for (i in collection) {
-            renderMessageToTop(collection[i]);
+            renderMessageToBottom(collection[i]);
         }
     }
 
