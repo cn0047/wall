@@ -60,6 +60,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
 
     public function getById(int $vo): MessageEntity
     {
+        // TODO: Implement getById() method.
         return new MessageEntity();
     }
 
