@@ -1,0 +1,14 @@
+{
+  "name": "wall_react",
+  "version": "1.0.0",
+  "description": "wall react",
+  "main": "",
+  "author": "cn007b",
+  "scripts": {
+    "compile": "./node_modules/.bin/babel babel/app.babel --out-file compiled/app.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

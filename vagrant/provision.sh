@@ -16,6 +16,15 @@ sudo apt-get install php7.0-phalcon
 sudo curl -sS https://getcomposer.org/installer | sudo php
 sudo mv composer.phar /usr/local/bin/composer
 
+# nodejs
+sudo apt-get install -y python-software-properties
+sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+# init react
+cd /var/www/html/wall/src/web/js/implementation/react/ \
+    && npm install --save-dev babel-cli babel-preset-env babel-polyfill babel-preset-react \
+    && npm run compile \
+
 # mysql
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password m_root_pass'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password m_root_pass'
