@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Wall\Infrastructure\Persistence\MySql;
 
-use PlainPHP\Foundation\Di;
+use Kernel\Di;
 use Wall\Application\Exception\Persistence\RuntimeInsertQueryException;
 use Wall\Application\Exception\Persistence\RuntimeSelectQueryException;
 use Wall\Application\VO\Message\GetMessageByCriteria;
@@ -20,7 +20,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
     public function save(NewMessage $vo): MessageDTO
     {
         /** @var \PDO $pdo */
-        $pdo = Di::getInstance()->get('mysql');
+        $pdo = Di::getInstance()->getService('mysql');
 
         $sth = $pdo->prepare('INSERT INTO message SET userId = :userId, message = :message');
         $sth->bindValue(':userId', $vo->getUserId(), \PDO::PARAM_STR);
@@ -43,7 +43,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
     private function getMessageByIntId(string $id): MessageDTO
     {
         /** @var \PDO $pdo */
-        $pdo = Di::getInstance()->get('mysql');
+        $pdo = Di::getInstance()->getService('mysql');
 
         $sth = $pdo->prepare("
             SELECT id, userId, message, DATE_FORMAT(createdAt, '%d %b %y') AS createdAt
@@ -67,7 +67,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
     public function getMessagesByCriteria(GetMessageByCriteria $vo): array
     {
         /** @var \PDO $pdo */
-        $pdo = Di::getInstance()->get('mysql');
+        $pdo = Di::getInstance()->getService('mysql');
 
         $limit = $vo->getLimit();
         $offset = $vo->getOffset();

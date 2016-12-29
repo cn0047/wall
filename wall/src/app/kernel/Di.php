@@ -8,7 +8,11 @@ class Di
 {
     private static $config = [];
 
+    private static $di = [];
+
     private static $persistences = [];
+
+    private static $services = [];
 
     /**
      * @var Di $instance
@@ -27,10 +31,21 @@ class Di
     {
         if (static::$instance === null) {
             static::$config = require APP_DIR . '/src/app/config/config.php';
+            static::$di = require APP_DIR . '/src/app/config/config.di.php';
             static::$instance = new static();
         }
 
         return static::$instance;
+    }
+
+    public static function getService(string $name)
+    {
+        if (!isset(static::$services[$name])) {
+            $closure = static::$di[$name];
+            static::$services[$name] = $closure();
+        }
+
+        return static::$services[$name];
     }
 
     public static function getConfig(string $name)
