@@ -1,28 +1,7 @@
 <html>
 <head>
-    <style>
-        .message {
-            border-radius: 4px 4px;
-            border: 1px solid white;
-            cursor: pointer;
-            display: inline-block;
-            float: left;
-            margin: 2px;
-            padding: 15px 5px 5px 5px;
-        }
-        .message .date {
-            visibility: hidden;
-        }
-        .message:hover {
-            border: 1px solid lightgray;
-        }
-        .message:hover .date {
-            visibility: visible;
-        }
-        .btnNewDlg {
-            margin: 2px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
     <header>
@@ -55,66 +34,8 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js"></script>
-<!--<script src="/wall/src/web/js/implementation/jquery/app.js"></script>-->
-<script>
-
-    function initMessage(message) {
-        $newDiv = $('#template .message').clone().removeClass('hidden');
-        $newDiv.find('div.body').html(message.message);
-        $newDiv.find('div.foot span.date').html(message.createdAt);
-        return $newDiv;
-    }
-
-    function renderMessageToTop(message) {
-        $newDiv = initMessage(message);
-        $("#doc").prepend($newDiv);
-    }
-
-    function renderMessageToBottom(message) {
-        $newDiv = initMessage(message);
-        $("#doc").append($newDiv);
-    }
-
-    function render(collection) {
-        for (i in collection) {
-            renderMessageToBottom(collection[i]);
-        }
-    }
-
-    $(document).ready(function () {
-        $.getJSON('messages/get/', {limit: 20, offset: 0}, function (res) {
-            render(res);
-        });
-    });
-
-    $('#btnSaveNewMsg').click(function () {
-        $.ajax({
-            url: 'messages/create/',
-            dataType: 'json',
-            type: 'post',
-            data: {userId: 0, message: $('#newDlg textarea').val()},
-            success: function (res) {
-                $('#newDlg').modal('toggle');
-                renderMessageToTop(res);
-                $('#newDlg textarea').val('');
-            },
-            error: function (xhr, status, error) {
-                if (xhr.status === 400) {
-                    var errors = JSON.parse(xhr.responseText);
-                    for (i in errors) {
-                        $.growl(
-                            i + ' - ' + errors[i],
-                            {type: 'danger', position: {from: "top", align: "center"}, z_index: 9999}
-                        );
-                    }
-                }
-            }
-        });
-    });
-
-</script>
+<script src="js/implementation/jquery/app.js"></script>
 </html>

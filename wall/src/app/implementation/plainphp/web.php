@@ -5,22 +5,23 @@ declare(strict_types=1);
 use GuzzleHttp\Psr7\Response;
 use ValueObject\Exception\ValidationException;
 
+require_once __DIR__ .'/../../../../bootstrap.php';
+
 try {
 
     $controller = 'index';
     $action = 'index';
 
-    if (isset($_SERVER['PATH_INFO'])) {
-        switch ($_SERVER['PATH_INFO']) {
-            case '/messages/get/':
-                $controller = 'messages';
-                $action = 'get';
-                break;
-            case '/messages/create/':
-                $controller = 'messages';
-                $action = 'create';
-                break;
-        }
+    $route = parse_url($_SERVER['REQUEST_URI'])['path'];
+    switch ($route) {
+        case '/messages/get/':
+            $controller = 'messages';
+            $action = 'get';
+            break;
+        case '/messages/create/':
+            $controller = 'messages';
+            $action = 'create';
+            break;
     }
 
     $className = "PlainPHP\\Controller\\" . ucfirst($controller);

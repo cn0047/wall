@@ -1,3 +1,4 @@
+.vagrant/
 wall/composer.lock
 wall/src/app/config/mongo.php
 wall/src/app/config/mysql.php

@@ -6,6 +6,8 @@ use Kernel\Exception\UserInterface\BadCommandCallException;
 use Psr\Http\Message\ResponseInterface;
 use ValueObject\Exception\ValidationException;
 
+require_once __DIR__ .'/../../../../bootstrap.php';
+
 try {
 
     if ($argc < 3) {
@@ -25,6 +27,8 @@ try {
     printf('VALIDATION EXCEPTION: %s'.PHP_EOL, json_encode($e->getMessages()));
 } catch (\InvalidArgumentException $e) {
     printf('INVALID ARGUMENT EXCEPTION: %s'.PHP_EOL, $e->getMessage());
+} catch (BadCommandCallException $e) {
+    printf('BAD COMMAND CALL EXCEPTION: %s'.PHP_EOL, $e->getMessage());
 } catch (\Error $e) {
     printf('Error: %s'.PHP_EOL, $e->getMessage());
 }
