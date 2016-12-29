@@ -1,22 +1,22 @@
 function initMessage(message) {
-    $newDiv = $('#template .message').clone().removeClass('hidden');
+    let $newDiv = $('#template .message').clone().removeClass('hidden');
     $newDiv.find('div.body').html(message.message);
     $newDiv.find('div.foot span.date').html(message.createdAt);
     return $newDiv;
 }
 
 function renderMessageToTop(message) {
-    $newDiv = initMessage(message);
+    let $newDiv = initMessage(message);
     $("#doc").prepend($newDiv);
 }
 
 function renderMessageToBottom(message) {
-    $newDiv = initMessage(message);
+    let $newDiv = initMessage(message);
     $("#doc").append($newDiv);
 }
 
 function render(collection) {
-    for (i in collection) {
+    for (let i in collection) {
         renderMessageToBottom(collection[i]);
     }
 }
@@ -38,10 +38,10 @@ $('#btnSaveNewMsg').click(function () {
             renderMessageToTop(res);
             $('#newDlg textarea').val('');
         },
-        error: function (xhr, status, error) {
+        error: function (xhr) {
             if (xhr.status === 400) {
-                var errors = JSON.parse(xhr.responseText);
-                for (i in errors) {
+                let errors = JSON.parse(xhr.responseText);
+                for (let i in errors) {
                     $.growl(
                         i + ' - ' + errors[i],
                         {type: 'danger', position: {from: "top", align: "center"}, z_index: 9999}

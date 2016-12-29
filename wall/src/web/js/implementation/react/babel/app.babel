@@ -1,0 +1,106 @@
+class Message extends React.Component {
+    render() {
+        return (
+            <div className="message">
+                <div className="body">{this.props.data.message}</div>
+                <div className="foot">
+                    <i><span className="date text-muted pull-right">{this.props.data.createdAt}</span></i>
+                </div>
+            </div>
+        );
+    }
+}
+
+class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {message: ''};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleChange(e) {
+        this.setState({message: e.target.value});
+    }
+    handleSubmit(e) {
+        let data = new FormData();
+        data.append('userId', 0);
+        data.append('message', this.state.message);
+        fetch('messages/create/', {method: 'post', body: data}).then((res) => {
+            if (res.status === 400) {
+                return res.json().then(errors => {
+                    for (let i in errors) {
+                        $.growl(
+                            i + ' - ' + errors[i],
+                            {type: 'danger', position: {from: "top", align: "center"}, z_index: 9999}
+                        );
+                    }
+                });
+            }
+            return res.json().then(data => {
+                $('#newDlg').modal('toggle');
+                $('#newDlg textarea').val('');
+                let messagesContainer = document.getElementById('wall');
+                let newMessage = document.createElement('div');
+                ReactDOM.render(<Message data={data} key={data.id} />, newMessage);
+                messagesContainer.insertBefore(newMessage, messagesContainer.firstChild);
+            });
+        });
+    }
+    render() {
+        return (
+            <header>
+                <button type="button" className="btn success btnNewDlg" data-toggle="modal" data-target="#newDlg">
+                    <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <div className="modal fade" id="newDlg" tabIndex="-1" role="dialog" aria-labelledby="">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-body">
+                                        <textarea className="form-control" rows="3"
+                                                  value={this.state.message} onChange={this.handleChange}/>
+                            </div>
+                            <div className="modal-body pull-right">
+                                <button type="button" className="btn btn-default" data-dismiss="modal">
+                                    discard
+                                </button>
+                                <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>
+                                    save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        );
+    }
+}
+
+class Wall extends React.Component {
+    render() {
+        let messages = [];
+        this.props.messages.forEach((msg) => {
+            messages.push(<Message data={msg} key={msg.id} />);
+        });
+        return (
+            <div id="wall">{messages}</div>
+        );
+    }
+}
+
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <Header />
+                <Wall messages={this.props.messages} />
+            </div>
+        );
+    }
+}
+
+fetch('messages/get/?limit=20&offset=0')
+    .then(result => result.json())
+    .then(messages => {
+        ReactDOM.render(<App messages={messages} />, document.getElementById('root'));
+    })
+;

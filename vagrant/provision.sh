@@ -20,8 +20,8 @@ sudo apt-get install -y nginx
 sudo cp /vagrant/vagrant/nginx.conf /etc/nginx/sites-available/default
 sudo service nginx restart
 
-#
 cd /var/www/html/wall/ && composer install
+
 sudo touch /var/www/html/wall/src/app/var/csv/db.csv.lastId
 sudo chmod 777 /var/www/html/wall/src/app/var/csv/db.csv.lastId
 sudo touch /var/www/html/wall/src/app/var/csv/db.csv
