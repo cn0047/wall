@@ -14,7 +14,7 @@ class EventPublisher
     /**
      * @var EventPublisher
      */
-    private static $instance = null;
+    private static $instance;
 
     public static function getInstance()
     {

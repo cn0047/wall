@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Loader;
 
 require_once __DIR__ .'/../../../bootstrap.php';
 
@@ -30,7 +31,11 @@ try {
     /**
      * Include Autoloader
      */
-    include APP_PATH . '/config/loader.php';
+    $loader = new Loader();
+    $loader->registerDirs([
+        $config->application->controllersDir,
+        $config->application->modelsDir
+    ])->register();
 
     /**
      * Handle the request
