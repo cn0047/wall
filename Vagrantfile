@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
     v.memory = 1024
     v.cpus = 2
   end
-  config.vm.network "private_network", ip: "192.168.33.10" # wall.plainphp.dev
+  config.vm.network "private_network", ip: "192.168.33.10" # wall.plainphp.dev wall.phalcon.dev
   config.vm.synced_folder "wall", "/var/www/html/wall"
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.provision :shell, path: "vagrant/provision.sh"

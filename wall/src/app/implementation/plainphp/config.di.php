@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-$config = require APP_DIR . '/src/app/config/config.php';
+use Kernel\Di;
 
 return [
-    'mysql' => function () use ($config) {
-        $mysqlConf = $config['mysql'];
+    'mysql' => function () {
+        $mysqlConf = Di::getInstance()->getConfig('mysql');
         return new \PDO(
             sprintf('mysql:host=%s;dbname=%s', $mysqlConf['host'], $mysqlConf['dbname']),
             $mysqlConf['user'],
             $mysqlConf['password']
         );
     },
-    'mongo' => function () use ($config) {
+    'mongo' => function () {
     },
 ];

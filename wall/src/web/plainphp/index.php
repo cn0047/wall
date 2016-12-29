@@ -5,7 +5,7 @@ declare(strict_types=1);
 use GuzzleHttp\Psr7\Response;
 use ValueObject\Exception\ValidationException;
 
-require_once __DIR__ .'/../../../../bootstrap.php';
+require_once __DIR__ .'/../../../bootstrap.php';
 
 try {
 

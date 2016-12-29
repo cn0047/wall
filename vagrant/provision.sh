@@ -8,6 +8,10 @@ sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
 sudo apt-get install -y php7.0 php7.0-fpm php7.0-cli php7.0-pdo php7.0-mysql
 
+# phalcon
+sudo curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | sudo bash
+sudo apt-get install php7.0-phalcon
+
 # composer
 sudo curl -sS https://getcomposer.org/installer | sudo php
 sudo mv composer.phar /usr/local/bin/composer
@@ -38,6 +42,9 @@ sudo touch /var/www/html/wall/src/app/var/csv/db.csv.lastId
 sudo chmod 777 /var/www/html/wall/src/app/var/csv/db.csv.lastId
 sudo touch /var/www/html/wall/src/app/var/csv/db.csv
 sudo chmod 777 /var/www/html/wall/src/app/var/csv/db.csv
+
+# init phalcon cache
+sudo chmod 777 -R /var/www/html/wall/src/app/implementation/phalcon/cache
 
 # init mysql config
 sudo cp /var/www/html/wall/src/app/config/mysql.php.template /var/www/html/wall/src/app/config/mysql.php
