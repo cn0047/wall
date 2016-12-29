@@ -29,38 +29,38 @@ class Di
 
     public static function getInstance(): Di
     {
-        if (static::$instance === null) {
-            static::$config = require APP_DIR . '/src/app/config/config.php';
-            static::$di = require APP_DIR . '/src/app/config/config.di.php';
-            static::$instance = new static();
+        if (self::$instance === null) {
+            self::$config = require APP_DIR . '/src/app/config/config.php';
+            self::$di = require APP_DIR . '/src/app/config/config.di.php';
+            self::$instance = new static();
         }
 
-        return static::$instance;
+        return self::$instance;
     }
 
     public static function getService(string $name)
     {
-        if (!isset(static::$services[$name])) {
-            $closure = static::$di[$name];
-            static::$services[$name] = $closure();
+        if (!isset(self::$services[$name])) {
+            $closure = self::$di[$name];
+            self::$services[$name] = $closure();
         }
 
-        return static::$services[$name];
+        return self::$services[$name];
     }
 
     public static function getConfig(string $name)
     {
-        return static::$config[$name];
+        return self::$config[$name];
     }
 
     public static function getPersistence(string $name)
     {
-        if (!isset(static::$persistences[$name])) {
+        if (!isset(self::$persistences[$name])) {
             $persistence = self::getConfig('persistence')['default'];
             $className = "Wall\\Infrastructure\\Persistence\\$persistence\\" . ucfirst($name);
-            static::$persistences[$name] = new $className();
+            self::$persistences[$name] = new $className();
         }
 
-        return static::$persistences[$name];
+        return self::$persistences[$name];
     }
 }
