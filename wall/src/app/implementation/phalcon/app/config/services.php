@@ -1,3 +1,4 @@
+
 <?php
 
 declare(strict_types=1);
@@ -34,17 +35,19 @@ $di->setShared('url', function () {
  * Setting up the view component
  */
 $di->setShared('view', function () {
-    $config = Di::getDefault()->getShared('config');
+    $di = Di::getDefault();
+    $config = $di->getShared('config');
 
     $view = new View();
-    $view->setDI($this);
+    $view->setDI($di);
     $view->setViewsDir($config->application->viewsDir);
 
     $view->registerEngines([
         '.volt' => function ($view) {
-            $config = Di::getDefault()->getShared('config');
+            $di = Di::getDefault();
+            $config = $di->getShared('config');
 
-            $volt = new VoltEngine($view, $this);
+            $volt = new VoltEngine($view, $di);
 
             $volt->setOptions([
                 'compiledPath' => $config->application->cacheDir,
