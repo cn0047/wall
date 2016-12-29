@@ -35,6 +35,9 @@ $di->setShared('url', function () {
  */
 $di->setShared('view', function () {
     $di = Di::getDefault();
+    if ($di === null) {
+        $di = new Di();
+    }
     $config = $di->getShared('config');
 
     $view = new View();
