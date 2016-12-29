@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 return ['mysql' => [
-    'host' => '',
-    'dbname' => '',
-    'user' => '',
+    'host' => 'localhost',
+    'dbname' => 'walldb',
+    'user' => 'walldbuser',
     'password' => '',
 ]];
