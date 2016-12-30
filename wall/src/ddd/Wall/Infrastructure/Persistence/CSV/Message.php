@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Wall\Infrastructure\Persistence\CSV;
 
@@ -48,7 +48,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
             'message' => str_replace("\n", '', nl2br(htmlspecialchars($vo->getMessage()))),
             'createdAt' => date('Y-m-d H:i:s'),
         ]);
-        $fp = fopen($this->db , 'ab');
+        $fp = fopen($this->db, 'ab');
         fputcsv($fp, $dto->toArray());
         fclose($fp);
 

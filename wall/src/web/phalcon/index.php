@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
 
-require_once __DIR__ .'/../../../bootstrap.php';
+require_once __DIR__ . '/../../../bootstrap.php';
 
 define('BASE_PATH', __DIR__ . '/../../app/implementation/phalcon');
 define('APP_PATH', BASE_PATH . '/app');
