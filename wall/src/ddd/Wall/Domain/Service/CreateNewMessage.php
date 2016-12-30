@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Wall\Domain\Service;
 
@@ -10,7 +10,7 @@ use Wall\Domain\Model\Message\DTO\Message as MessageDTO;
 use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
 use Wall\Domain\Model\Message\Event\MessageCreated as MessageCreatedEvent;
 use Wall\EventPublisher;
-use Wall\Infrastructure\FullTextSearching\ElasticSearch\Subscriber\MessageCreated  as ESSubscriber;
+use Wall\Infrastructure\FullTextSearching\ElasticSearch\Subscriber\MessageCreated as ESSubscriber;
 use Wall\Infrastructure\Persistence\MySql\Subscriber\MessageCreated as MySqlSubscriber;
 
 class CreateNewMessage

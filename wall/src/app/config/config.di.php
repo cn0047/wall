@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Kernel\Di;
 
 return [
-    'mysql' => function () {
+    'mysql' => function() {
         $mysqlConf = Di::getInstance()->getConfig('mysql');
         return new \PDO(
             sprintf('mysql:host=%s;dbname=%s', $mysqlConf['host'], $mysqlConf['dbname']),
@@ -13,6 +13,6 @@ return [
             $mysqlConf['password']
         );
     },
-    'mongo' => function () {
+    'mongo' => function() {
     },
 ];
