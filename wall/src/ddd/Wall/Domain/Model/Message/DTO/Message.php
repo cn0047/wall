@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Wall\Domain\Model\Message\DTO;
 
 class Message

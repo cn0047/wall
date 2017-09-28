@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 use Kernel\Exception\UserInterface\BadCommandCallException;
 use Psr\Http\Message\ResponseInterface;
 use ValueObject\Exception\ValidationException;

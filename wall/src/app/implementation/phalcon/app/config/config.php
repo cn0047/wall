@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 use Kernel\Di;
 
 $mysqlConf = Di::getInstance()->getConfig('mysql');

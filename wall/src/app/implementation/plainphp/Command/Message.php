@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace PlainPHP\Command;
 
 use GuzzleHttp\Psr7\Response;

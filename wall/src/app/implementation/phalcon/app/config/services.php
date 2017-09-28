@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 use Phalcon\Di;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;

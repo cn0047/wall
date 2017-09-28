@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 use Kernel\Di;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Wall\Application\VO\Message;
 
 use ValueObject\ValueObject;

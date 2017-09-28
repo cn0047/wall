@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 $csv = require APP_DIR . '/src/app/config/csv.php';
 $mysql = require APP_DIR . '/src/app/config/mysql.php';
 $mongo = require APP_DIR . '/src/app/config/mongo.php';

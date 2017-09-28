@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Wall\Infrastructure\Persistence\Mongo;
 
 use Wall\Application\VO\Message\GetMessageByCriteria;
