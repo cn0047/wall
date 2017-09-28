@@ -53,6 +53,8 @@ $('#btnSaveNewMsg').click(function () {
                         {type: 'danger', position: {from: "top", align: "center"}, z_index: 9999}
                     );
                 }
+            } else {
+                console.error('Unhandled error, code: JS001');
             }
         }
     });
