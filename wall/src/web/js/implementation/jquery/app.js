@@ -17,6 +17,9 @@ function renderMessageToBottom(message) {
 
 function render(collection) {
     for (var i in collection) {
+        if (!collection.hasOwnProperty(i)) {
+            continue;
+        }
         renderMessageToBottom(collection[i]);
     }
 }
@@ -42,6 +45,9 @@ $('#btnSaveNewMsg').click(function () {
             if (xhr.status === 400) {
                 var errors = JSON.parse(xhr.responseText);
                 for (var i in errors) {
+                    if (!errors.hasOwnProperty(i)) {
+                        continue;
+                    }
                     $.growl(
                         i + ' - ' + errors[i],
                         {type: 'danger', position: {from: "top", align: "center"}, z_index: 9999}

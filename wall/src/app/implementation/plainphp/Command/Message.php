@@ -6,12 +6,13 @@ use GuzzleHttp\Psr7\Response;
 use Kernel\Exception\InvalidArgument\InvalidIdArgumentException;
 use Kernel\Exception\InvalidArgument\InvalidMessageArgumentException;
 use Wall\Application\Service\Message\MessageService;
+use Wall\Domain\Model\Message\DTO\Message as MessageDTO;
 
 class Message
 {
-    private function returnJsonResponse(int $statusCode, array $array): Response
+    private function returnJsonResponse(int $statusCode, MessageDTO $message): Response
     {
-        return new Response($statusCode, ['Content-Type' => 'application/json'], json_encode($array));
+        return new Response($statusCode, ['Content-Type' => 'application/json'], json_encode($message->toArray()));
     }
 
     public function create(array $request): Response
@@ -20,9 +21,13 @@ class Message
             throw new InvalidMessageArgumentException('You have to specify message text.');
         }
 
-        $message = (new MessageService())->createSimpleMessage($request[4] ?? '0', $request[3]);
+        $messageText = $request[3];
+        $userId = $request[4] ?? '0';
 
-        return $this->returnJsonResponse(201, $message->toArray());
+        $ms = new MessageService();
+        $message = $ms->createSimpleMessage($userId, $messageText);
+
+        return $this->returnJsonResponse(201, $message);
     }
 
     public function getById(array $request): Response
@@ -31,8 +36,6 @@ class Message
             throw new InvalidIdArgumentException('You have to specify message id.');
         }
 
-        $message = (new MessageService())->getMessageById($request[3]);
-
-        return $this->returnJsonResponse(200, $message->toArray());
+        return $this->returnJsonResponse(200, (new MessageService())->getMessageById($request[3]));
     }
 }
