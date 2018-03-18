@@ -1,6 +1,6 @@
 <?php
 
-namespace Wall\Infrastructure\Persistence\Mongo\Subscriber;
+namespace Wall\Infrastructure\Persistence\MongoDB\Subscriber;
 
 use Wall\EventInterface;
 use Wall\EventSubscriber;

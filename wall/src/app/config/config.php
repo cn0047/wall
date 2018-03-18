@@ -1,10 +1,10 @@
 <?php
 
-$csv = require APP_DIR . '/src/app/config/csv.php';
-$mysql = require APP_DIR . '/src/app/config/mysql.php';
-$mongo = require APP_DIR . '/src/app/config/mongo.php';
-$persistence = require APP_DIR . '/src/app/config/persistence.php';
+$csv = require APP_DIR . '/src/app/config/config.csv.php';
+$mysql = require APP_DIR . '/src/app/config/config.mysql.php';
+$mongodb = require APP_DIR . '/src/app/config/config.mongodb.php';
+$persistence = require APP_DIR . '/src/app/config/config.persistence.php';
 
-$frontend = require APP_DIR . '/src/app/config/frontend.php';
+$frontend = require APP_DIR . '/src/app/config/config.frontend.php';
 
-return $csv + $mysql + $mongo + $persistence + $frontend;
+return $csv + $mysql + $mongodb + $persistence + $frontend;

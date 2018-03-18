@@ -10,7 +10,7 @@ define('APP_DIR', __DIR__);
 
 // GLOBAL DI CONSTANTS.
 // Here you can loosely change db storage or frontend implementation.
-define('APP_PERSISTENCE', 'MySql'); // CSV | MySql | Mongo
+define('APP_PERSISTENCE', 'MySql'); // CSV | MySql | MongoDB
 define('APP_FRONTEND', 'react'); // jquery | react
 
 require_once __DIR__ . '/vendor/autoload.php';

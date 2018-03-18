@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-return ['mongo' => [
+return ['mongodb' => [
     'host' => '',
     'user' => '',
     'password' => '',

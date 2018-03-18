@@ -1,6 +1,6 @@
 <?php
 
-namespace Wall\Infrastructure\Persistence\Mongo;
+namespace Wall\Infrastructure\Persistence\MongoDB;
 
 use Wall\Application\VO\Message\GetMessageByCriteria;
 use Wall\Application\VO\Message\GetMessageById;

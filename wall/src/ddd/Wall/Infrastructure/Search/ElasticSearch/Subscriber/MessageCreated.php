@@ -1,6 +1,6 @@
 <?php
 
-namespace Wall\Infrastructure\FullTextSearching\ElasticSearch\Subscriber;
+namespace Wall\Infrastructure\Search\ElasticSearch\Subscriber;
 
 use Wall\EventInterface;
 use Wall\EventSubscriber;
