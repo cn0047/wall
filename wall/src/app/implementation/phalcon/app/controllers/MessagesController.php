@@ -17,9 +17,9 @@ class MessagesController extends Controller
 
     public function getAction(): Response
     {
-        $vo = new GetMessageByCriteria($this->request->getQuery());
+        $valueObject = new GetMessageByCriteria($this->request->getQuery());
 
-        $collection = (new MessageService())->getMessagesByCriteria($vo);
+        $collection = (new MessageService())->getMessagesByCriteria($valueObject);
 
         return $this->returnJsonResponse($collection);
     }

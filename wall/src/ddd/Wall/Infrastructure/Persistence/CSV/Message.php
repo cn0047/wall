@@ -43,7 +43,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
         $dto = new MessageDTO([
             'id' => $this->getNewId(),
             'userId' => $valueObject->getUserId(),
-            'message' => str_replace("\n", '', nl2br(htmlspecialchars($vo->getMessage()))),
+            'message' => str_replace("\n", '', nl2br(htmlspecialchars($valueObject->getMessage()))),
             'createdAt' => date('Y-m-d H:i:s'),
         ]);
         $fp = fopen($this->db, 'ab');
@@ -56,24 +56,24 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return new MessageDTO($record);
     }
 
-    public function getById(int $vo): MessageEntity
+    public function getById(int $valueObject): MessageEntity
     {
         return new MessageEntity();
     }
 
-    public function getMessageById(GetMessageById $vo): MessageDTO
+    public function getMessageById(GetMessageById $valueObject): MessageDTO
     {
         // This is most efficient way to achieve desired aim!
-        $command = sprintf("grep '^%s,' -Er %s", $vo->getId(), $this->db);
+        $command = sprintf("grep '^%s,' -Er %s", $valueObject->getId(), $this->db);
         $result = `$command`;
 
         return new MessageDTO(array_combine(self::$schema, str_getcsv($result)));
     }
 
-    public function getMessagesByCriteria(GetMessageByCriteria $vo): array
+    public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
-        $limit = (int)$vo->getLimit();
-        $offset = (int)$vo->getOffset();
+        $limit = (int)$valueObject->getLimit();
+        $offset = (int)$valueObject->getOffset();
         // This is most efficient way to achieve desired aim!
         $command = sprintf('tac %s | head -n %d | tail -n %d', $this->db, $limit + $offset, $limit);
         $rawCsv = `$command`;

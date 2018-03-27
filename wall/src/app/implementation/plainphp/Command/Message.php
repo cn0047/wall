@@ -24,8 +24,8 @@ class Message
         $messageText = $request[3];
         $userId = $request[4] ?? '0';
 
-        $ms = new MessageService();
-        $message = $ms->createSimpleMessage($userId, $messageText);
+        $messageService = new MessageService();
+        $message = $messageService->createSimpleMessage($userId, $messageText);
 
         return $this->returnJsonResponse(201, $message);
     }

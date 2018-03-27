@@ -9,9 +9,9 @@ use Wall\Domain\Model\Message\DTO\Message;
 
 interface MessageRepositoryInterface extends DAOInterface
 {
-    public function getMessageById(GetMessageById $vo): Message;
+    public function getMessageById(GetMessageById $valueObject): Message;
 
-    public function save(NewMessage $vo): Message;
+    public function save(NewMessage $valueObject): Message;
 
-    public function getMessagesByCriteria(GetMessageByCriteria $vo): array;
+    public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array;
 }

@@ -43,12 +43,12 @@ class MessageService
      */
     public function createSimpleMessage(string $userId, string $message): MessageDTO
     {
-        $vo = new NewMessage([
+        $valueObject = new NewMessage([
             'message' => $message,
             'userId' => $userId ?? '0',
         ]);
 
-        return (new CreateNewMessage())->execute($vo);
+        return (new CreateNewMessage())->execute($valueObject);
     }
 
     /**
@@ -58,13 +58,13 @@ class MessageService
      */
     public function getMessageById(string $id): MessageDTO
     {
-        $vo = new GetMessageById(['id' => $id]);
+        $valueObject = new GetMessageById(['id' => $id]);
 
-        return $this->repository->getMessageById($vo);
+        return $this->repository->getMessageById($valueObject);
     }
 
-    public function getMessagesByCriteria(GetMessageByCriteria $vo): array
+    public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
-        return $this->repository->getMessagesByCriteria($vo);
+        return $this->repository->getMessagesByCriteria($valueObject);
     }
 }

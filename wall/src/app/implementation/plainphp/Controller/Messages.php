@@ -22,9 +22,9 @@ class Messages
 
     public function get(): Response
     {
-        $vo = new GetMessageByCriteria($_GET);
+        $valueObject = new GetMessageByCriteria($_GET);
 
-        $collection = (new MessageService())->getMessagesByCriteria($vo);
+        $collection = (new MessageService())->getMessagesByCriteria($valueObject);
 
         return $this->returnJsonResponse(200, $collection);
     }

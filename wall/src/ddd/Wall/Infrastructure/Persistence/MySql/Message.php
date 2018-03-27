@@ -15,14 +15,14 @@ use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
 
 class Message implements DAOInterface, MessageRepositoryInterface
 {
-    public function save(NewMessage $vo): MessageDTO
+    public function save(NewMessage $valueObject): MessageDTO
     {
         /** @var \PDO $pdo */
         $pdo = Di::getInstance()->getService('mysql');
 
         $sth = $pdo->prepare('INSERT INTO message SET userId = :userId, message = :message');
-        $sth->bindValue(':userId', $vo->getUserId(), \PDO::PARAM_STR);
-        $sth->bindValue(':message', $vo->getMessage(), \PDO::PARAM_STR);
+        $sth->bindValue(':userId', $valueObject->getUserId(), \PDO::PARAM_STR);
+        $sth->bindValue(':message', $valueObject->getMessage(), \PDO::PARAM_STR);
         if ($sth->execute()) {
             $id = $pdo->lastInsertId();
         } else {
@@ -32,7 +32,7 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return $this->getMessageByIntId($id);
     }
 
-    public function getById(int $vo): MessageEntity
+    public function getById(int $valueObject): MessageEntity
     {
         return new MessageEntity();
     }
@@ -56,18 +56,18 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return $sth->fetch();
     }
 
-    public function getMessageById(GetMessageById $vo): MessageDTO
+    public function getMessageById(GetMessageById $valueObject): MessageDTO
     {
-        return $this->getMessageByIntId($vo->getId());
+        return $this->getMessageByIntId($valueObject->getId());
     }
 
-    public function getMessagesByCriteria(GetMessageByCriteria $vo): array
+    public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
         /** @var \PDO $pdo */
         $pdo = Di::getInstance()->getService('mysql');
 
-        $limit = $vo->getLimit();
-        $offset = $vo->getOffset();
+        $limit = $valueObject->getLimit();
+        $offset = $valueObject->getOffset();
         $sth = $pdo->prepare("
             SELECT id, userId, message, DATE_FORMAT(createdAt, '%d %b %y') AS createdAt
             FROM message
