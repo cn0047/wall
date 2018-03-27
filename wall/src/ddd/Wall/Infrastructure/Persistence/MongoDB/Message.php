@@ -12,22 +12,22 @@ use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
 
 class Message implements DAOInterface, MessageRepositoryInterface
 {
-    public function getById(int $vo): MessageEntity
+    public function getById(int $valueObject): MessageEntity
     {
         return new MessageEntity();
     }
 
-    public function getMessageById(GetMessageById $vo): MessageDTO
+    public function getMessageById(GetMessageById $valueObject): MessageDTO
     {
         return new MessageDTO([]);
     }
 
-    public function save(NewMessage $vo): MessageDTO
+    public function save(NewMessage $valueObject): MessageDTO
     {
         return new MessageDTO([]);
     }
 
-    public function getMessagesByCriteria(GetMessageByCriteria $vo): array
+    public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
         return [];
     }

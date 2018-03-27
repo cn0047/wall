@@ -15,7 +15,7 @@ class Messages
 
     public function create(): Response
     {
-        $message = (new MessageService())->createSimpleMessage(...array_values($_POST));
+        $message = (new MessageService())->createSimpleMessage($_POST['userId'], $_POST['message']);
 
         return $this->returnJsonResponse(201, $message->toArray());
     }

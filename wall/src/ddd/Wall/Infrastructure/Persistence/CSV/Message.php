@@ -38,11 +38,11 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return $id;
     }
 
-    public function save(NewMessage $vo): MessageDTO
+    public function save(NewMessage $valueObject): MessageDTO
     {
         $dto = new MessageDTO([
             'id' => $this->getNewId(),
-            'userId' => $vo->getUserId(),
+            'userId' => $valueObject->getUserId(),
             'message' => str_replace("\n", '', nl2br(htmlspecialchars($vo->getMessage()))),
             'createdAt' => date('Y-m-d H:i:s'),
         ]);

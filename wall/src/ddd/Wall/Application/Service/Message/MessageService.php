@@ -3,12 +3,15 @@
 namespace Wall\Application\Service\Message;
 
 use Kernel\Di;
+use Kernel\Exception\Di\ConfigNotFoundException;
+use Kernel\Exception\Di\PersistenceNotFoundException;
+use ValueObject\Exception\ValidationException;
 use Wall\Application\VO\Message\GetMessageByCriteria;
 use Wall\Application\VO\Message\GetMessageById;
 use Wall\Application\VO\Message\NewMessage;
 use Wall\Domain\Model\Message\DTO\Message as MessageDTO;
-use Wall\Domain\Service\CreateNewMessage;
 use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
+use Wall\Domain\Service\CreateNewMessage;
 
 class MessageService
 {
@@ -17,6 +20,11 @@ class MessageService
      */
     private $repository;
 
+    /**
+     * MessageService constructor.
+     * @throws ConfigNotFoundException
+     * @throws PersistenceNotFoundException
+     */
     final public function __construct()
     {
         $this->init(Di::getInstance()->getPersistence('message'));
@@ -27,6 +35,12 @@ class MessageService
         $this->repository = $repository;
     }
 
+    /**
+     * @param string $userId
+     * @param string $message
+     * @return MessageDTO
+     * @throws ValidationException
+     */
     public function createSimpleMessage(string $userId, string $message): MessageDTO
     {
         $vo = new NewMessage([
@@ -37,6 +51,11 @@ class MessageService
         return (new CreateNewMessage())->execute($vo);
     }
 
+    /**
+     * @param string $id
+     * @return MessageDTO
+     * @throws ValidationException
+     */
     public function getMessageById(string $id): MessageDTO
     {
         $vo = new GetMessageById(['id' => $id]);

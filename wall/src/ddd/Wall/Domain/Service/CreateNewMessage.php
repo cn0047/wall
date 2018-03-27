@@ -31,9 +31,9 @@ class CreateNewMessage
         $this->repository = $repository;
     }
 
-    public function execute(NewMessage $vo): MessageDTO
+    public function execute(NewMessage $valueObject): MessageDTO
     {
-        $dto = $this->repository->save($vo);
+        $dto = $this->repository->save($valueObject);
 
         EventPublisher::getInstance()->publish(new MessageCreatedEvent($dto));
 
