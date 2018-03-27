@@ -3,6 +3,7 @@
 namespace Wall\Infrastructure\Persistence\CSV;
 
 use Kernel\Di;
+use Kernel\Exception\Di\ConfigNotFoundException;
 use Wall\Application\VO\Message\GetMessageByCriteria;
 use Wall\Application\VO\Message\GetMessageById;
 use Wall\Application\VO\Message\NewMessage;
@@ -15,14 +16,20 @@ class Message implements DAOInterface, MessageRepositoryInterface
 {
     private static $schema = ['id', 'userId', 'message', 'createdAt'];
 
-    private $db = '';
+    private $db;
 
+    /**
+     * @throws ConfigNotFoundException
+     */
     public function __construct()
     {
         $this->db = Di::getInstance()->getConfig('csv')['db'];
     }
 
-    private function getNewId()
+    /**
+     * @return int
+     */
+    private function getNewId(): int
     {
         $file = $this->db . '.lastId';
         // Init id file.
@@ -38,6 +45,10 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return $id;
     }
 
+    /**
+     * @param NewMessage $valueObject
+     * @return MessageDTO
+     */
     public function save(NewMessage $valueObject): MessageDTO
     {
         $dto = new MessageDTO([
@@ -56,27 +67,39 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return new MessageDTO($record);
     }
 
+    /**
+     * @param int $valueObject
+     * @return MessageEntity
+     */
     public function getById(int $valueObject): MessageEntity
     {
         return new MessageEntity();
     }
 
+    /**
+     * @param GetMessageById $valueObject
+     * @return MessageDTO
+     */
     public function getMessageById(GetMessageById $valueObject): MessageDTO
     {
         // This is most efficient way to achieve desired aim!
         $command = sprintf("grep '^%s,' -Er %s", $valueObject->getId(), $this->db);
-        $result = `$command`;
+        $result = shell_exec($command);
 
         return new MessageDTO(array_combine(self::$schema, str_getcsv($result)));
     }
 
+    /**
+     * @param GetMessageByCriteria $valueObject
+     * @return array
+     */
     public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
         $limit = (int)$valueObject->getLimit();
         $offset = (int)$valueObject->getOffset();
         // This is most efficient way to achieve desired aim!
         $command = sprintf('tac %s | head -n %d | tail -n %d', $this->db, $limit + $offset, $limit);
-        $rawCsv = `$command`;
+        $rawCsv = shell_exec($command);
         $result = [];
         foreach (explode("\n", $rawCsv) as $rawCsvRecord) {
             if ($rawCsvRecord !== '') {

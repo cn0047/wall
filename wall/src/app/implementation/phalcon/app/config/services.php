@@ -12,14 +12,14 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
 /**
  * Shared configuration service
  */
-$di->setShared('config', function() {
+$di->setShared('config', function () {
     return include APP_PATH . '/config/config.php';
 });
 
 /**
  * The URL component is used to generate all kind of urls in the application
  */
-$di->setShared('url', function() {
+$di->setShared('url', function () {
     $config = Di::getDefault()->getShared('config');
 
     $url = new UrlResolver();
@@ -31,7 +31,7 @@ $di->setShared('url', function() {
 /**
  * Setting up the view component
  */
-$di->setShared('view', function() {
+$di->setShared('view', function () {
     $di = Di::getDefault();
     if ($di === null) {
         $di = new Di();
@@ -43,7 +43,7 @@ $di->setShared('view', function() {
     $view->setViewsDir($config->application->viewsDir);
 
     $view->registerEngines([
-        '.volt' => function($view) {
+        '.volt' => function ($view) {
             $di = Di::getDefault();
             $config = $di->getShared('config');
 
@@ -66,7 +66,7 @@ $di->setShared('view', function() {
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di->setShared('db', function() {
+$di->setShared('db', function () {
     $config = Di::getDefault()->getShared('config');
 
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
@@ -83,21 +83,20 @@ $di->setShared('db', function() {
     }
 
     return new $class($params);
-
 });
 
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
-$di->setShared('modelsMetadata', function() {
+$di->setShared('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
 /**
  * Register the session flash service with the Twitter Bootstrap classes
  */
-$di->set('flash', function() {
+$di->set('flash', function () {
     return new Flash([
         'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
@@ -109,7 +108,7 @@ $di->set('flash', function() {
 /**
  * Start the session the first time some component request the session service
  */
-$di->setShared('session', function() {
+$di->setShared('session', function () {
     $session = new SessionAdapter();
     $session->start();
 

@@ -3,6 +3,8 @@
 namespace Wall\Domain\Service;
 
 use Kernel\Di;
+use Kernel\Exception\Di\ConfigNotFoundException;
+use Kernel\Exception\Di\PersistenceNotFoundException;
 use Wall\Application\VO\Message\NewMessage;
 use Wall\Domain\Model\Message\DTO\Message as MessageDTO;
 use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
@@ -18,6 +20,10 @@ class CreateNewMessage
      */
     private $repository;
 
+    /**
+     * @throws ConfigNotFoundException
+     * @throws PersistenceNotFoundException
+     */
     final public function __construct()
     {
         $this->init(Di::getInstance()->getPersistence('message'));
@@ -26,11 +32,18 @@ class CreateNewMessage
         EventPublisher::getInstance()->subscribe(new ESSubscriber());
     }
 
-    final private function init(MessageRepositoryInterface $repository)
+    /**
+     * @param MessageRepositoryInterface $repository
+     */
+    private function init(MessageRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * @param NewMessage $valueObject
+     * @return MessageDTO
+     */
     public function execute(NewMessage $valueObject): MessageDTO
     {
         $dto = $this->repository->save($valueObject);

@@ -12,12 +12,15 @@ class Message
 
     private $createdAt;
 
+    /**
+     * Message constructor.
+     */
     public function __construct()
     {
         // In case when PDO fetch data from DB here in constructor we don't obtain data,
         // because PDO fulfill all necessary stuff under the hood.
         // Hence in this case we shouldn't do any actions.
-        $args = func_get_args();
+        $args = \func_get_args();
         if ($args === []) {
             return;
         }
@@ -30,6 +33,9 @@ class Message
         }
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [

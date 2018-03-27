@@ -9,6 +9,9 @@ use ValueObject\ValueObject;
  */
 class GetMessageById extends ValueObject
 {
+    /**
+     * @return array
+     */
     protected function getRules(): array
     {
         return [

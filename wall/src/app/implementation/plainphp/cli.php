@@ -7,7 +7,6 @@ use ValueObject\Exception\ValidationException;
 require_once __DIR__ . '/../../../../bootstrap.php';
 
 try {
-
     if ($argc < 3) {
         throw new BadCommandCallException('You have to specify command and action.');
     }
@@ -19,14 +18,13 @@ try {
     /** @var ResponseInterface $response */
     $response = $handler->$action($argv);
 
-    print htmlspecialchars($response->getBody());
-
+    print $response->getBody();
 } catch (ValidationException $e) {
-    printf('VALIDATION EXCEPTION: %s' . PHP_EOL, htmlspecialchars(json_encode($e->getMessages())));
+    printf('VALIDATION EXCEPTION: %s' . PHP_EOL, json_encode($e->getMessages()));
 } catch (\InvalidArgumentException $e) {
-    printf('INVALID ARGUMENT EXCEPTION: %s' . PHP_EOL, htmlspecialchars($e->getMessage()));
+    printf('INVALID ARGUMENT EXCEPTION: %s' . PHP_EOL, $e->getMessage());
 } catch (BadCommandCallException $e) {
-    printf('BAD COMMAND CALL EXCEPTION: %s' . PHP_EOL, htmlspecialchars($e->getMessage()));
+    printf('BAD COMMAND CALL EXCEPTION: %s' . PHP_EOL, $e->getMessage());
 } catch (\Error $e) {
-    printf('Error: %s' . PHP_EOL, htmlspecialchars($e->getMessage()));
+    printf('Error: %s' . PHP_EOL, $e->getMessage());
 }

@@ -10,6 +10,9 @@ use ValueObject\ValueObject;
  */
 class GetMessageByCriteria extends ValueObject
 {
+    /**
+     * @return array
+     */
     protected function getRules(): array
     {
         return [

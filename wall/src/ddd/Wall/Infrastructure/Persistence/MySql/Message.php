@@ -3,6 +3,7 @@
 namespace Wall\Infrastructure\Persistence\MySql;
 
 use Kernel\Di;
+use Kernel\Exception\Di\ServiceInitMethodNotFoundException;
 use Wall\Application\Exception\Persistence\RuntimeInsertQueryException;
 use Wall\Application\Exception\Persistence\RuntimeSelectQueryException;
 use Wall\Application\VO\Message\GetMessageByCriteria;
@@ -15,6 +16,13 @@ use Wall\Domain\Model\Message\Entity\MessageRepositoryInterface;
 
 class Message implements DAOInterface, MessageRepositoryInterface
 {
+    /**
+     * @param NewMessage $valueObject
+     * @throws RuntimeInsertQueryException
+     * @throws RuntimeSelectQueryException
+     * @throws ServiceInitMethodNotFoundException
+     * @return MessageDTO
+     */
     public function save(NewMessage $valueObject): MessageDTO
     {
         /** @var \PDO $pdo */
@@ -32,11 +40,21 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return $this->getMessageByIntId($id);
     }
 
+    /**
+     * @param int $valueObject
+     * @return MessageEntity
+     */
     public function getById(int $valueObject): MessageEntity
     {
         return new MessageEntity();
     }
 
+    /**
+     * @param string $id
+     * @throws RuntimeSelectQueryException
+     * @throws ServiceInitMethodNotFoundException
+     * @return MessageDTO
+     */
     private function getMessageByIntId(string $id): MessageDTO
     {
         /** @var \PDO $pdo */
@@ -56,11 +74,23 @@ class Message implements DAOInterface, MessageRepositoryInterface
         return $sth->fetch();
     }
 
+    /**
+     * @param GetMessageById $valueObject
+     * @throws RuntimeSelectQueryException
+     * @throws ServiceInitMethodNotFoundException
+     * @return MessageDTO
+     */
     public function getMessageById(GetMessageById $valueObject): MessageDTO
     {
         return $this->getMessageByIntId($valueObject->getId());
     }
 
+    /**
+     * @param GetMessageByCriteria $valueObject
+     * @throws RuntimeSelectQueryException
+     * @throws ServiceInitMethodNotFoundException
+     * @return array
+     */
     public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
         /** @var \PDO $pdo */

@@ -21,7 +21,6 @@ class MessageService
     private $repository;
 
     /**
-     * MessageService constructor.
      * @throws ConfigNotFoundException
      * @throws PersistenceNotFoundException
      */
@@ -30,7 +29,10 @@ class MessageService
         $this->init(Di::getInstance()->getPersistence('message'));
     }
 
-    final private function init(MessageRepositoryInterface $repository)
+    /**
+     * @param MessageRepositoryInterface $repository
+     */
+    private function init(MessageRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -38,8 +40,10 @@ class MessageService
     /**
      * @param string $userId
      * @param string $message
-     * @return MessageDTO
+     * @throws \Kernel\Exception\Di\ConfigNotFoundException
      * @throws ValidationException
+     * @throws PersistenceNotFoundException
+     * @return MessageDTO
      */
     public function createSimpleMessage(string $userId, string $message): MessageDTO
     {
@@ -52,9 +56,21 @@ class MessageService
     }
 
     /**
-     * @param string $id
-     * @return MessageDTO
+     * @param array $args
+     * @throws ConfigNotFoundException
+     * @throws PersistenceNotFoundException
      * @throws ValidationException
+     * @return MessageDTO
+     */
+    public function createSimpleMessageFromArray(array $args): MessageDTO
+    {
+        return (new CreateNewMessage())->execute(new NewMessage($args));
+    }
+
+    /**
+     * @param string $id
+     * @throws ValidationException
+     * @return MessageDTO
      */
     public function getMessageById(string $id): MessageDTO
     {
@@ -63,6 +79,10 @@ class MessageService
         return $this->repository->getMessageById($valueObject);
     }
 
+    /**
+     * @param GetMessageByCriteria $valueObject
+     * @return array
+     */
     public function getMessagesByCriteria(GetMessageByCriteria $valueObject): array
     {
         return $this->repository->getMessagesByCriteria($valueObject);

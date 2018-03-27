@@ -6,7 +6,6 @@ use ValueObject\Exception\ValidationException;
 require_once __DIR__ . '/../../../bootstrap.php';
 
 try {
-
     $controller = 'index';
     $action = 'index';
 
@@ -27,8 +26,7 @@ try {
     /** @var Response $response */
     $response = $handler->$action();
 
-    print htmlspecialchars($response->getBody());
-
+    print $response->getBody();
 } catch (ValidationException $e) {
     header('HTTP/1.0 400 Bad Request');
     print json_encode($e->getJoinedMessages());

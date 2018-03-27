@@ -1,11 +1,16 @@
 <?php
 
 use Kernel\Di;
+use Kernel\Exception\Di\ConfigNotFoundException;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
 
 class IndexController extends Controller
 {
+    /**
+     * @throws ConfigNotFoundException
+     * @return Response
+     */
     public function indexAction()
     {
         $implementation = Di::getInstance()->getConfig('frontend')['implementation'];

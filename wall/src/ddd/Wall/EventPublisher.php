@@ -14,7 +14,10 @@ class EventPublisher
      */
     private static $instance;
 
-    public static function getInstance()
+    /**
+     * @return EventPublisher
+     */
+    public static function getInstance(): EventPublisher
     {
         if (static::$instance === null) {
             static::$instance = new self();
@@ -31,11 +34,17 @@ class EventPublisher
     {
     }
 
+    /**
+     * @param $subscriber
+     */
     public function subscribe($subscriber)
     {
         $this->subscribers[] = $subscriber;
     }
 
+    /**
+     * @param EventInterface $event
+     */
     public function publish(EventInterface $event)
     {
         foreach ($this->subscribers as $subscriber) {
