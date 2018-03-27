@@ -1,6 +1,7 @@
 Wall
 -
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7ef23824b0fb40dab08b975b102005db)](https://app.codacy.com/app/cn007b/wall?utm_source=github.com&utm_medium=referral&utm_content=cn007b/wall&utm_campaign=badger)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f4018b786b58e19ce92e/maintainability)](https://codeclimate.com/github/cn007b/wall/maintainability)
 
 This is simple **wall**
