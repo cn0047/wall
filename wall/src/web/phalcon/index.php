@@ -40,9 +40,9 @@ try {
      */
     $application = new \Phalcon\Mvc\Application($di);
 
-    echo $application->handle()->getContent();
+    echo htmlspecialchars($application->handle()->getContent());
 
 } catch (\Exception $e) {
-    echo $e->getMessage() . '<br>';
-    echo '<pre>' . $e->getTraceAsString() . '</pre>';
+    echo htmlspecialchars($e->getMessage() . '<br>');
+    echo htmlspecialchars('<pre>' . $e->getTraceAsString() . '</pre>');
 }

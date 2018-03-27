@@ -19,14 +19,14 @@ try {
     /** @var ResponseInterface $response */
     $response = $handler->$action($argv);
 
-    print $response->getBody();
+    print htmlspecialchars($response->getBody());
 
 } catch (ValidationException $e) {
-    printf('VALIDATION EXCEPTION: %s' . PHP_EOL, json_encode($e->getMessages()));
+    printf('VALIDATION EXCEPTION: %s' . PHP_EOL, htmlspecialchars(json_encode($e->getMessages())));
 } catch (\InvalidArgumentException $e) {
-    printf('INVALID ARGUMENT EXCEPTION: %s' . PHP_EOL, $e->getMessage());
+    printf('INVALID ARGUMENT EXCEPTION: %s' . PHP_EOL, htmlspecialchars($e->getMessage()));
 } catch (BadCommandCallException $e) {
-    printf('BAD COMMAND CALL EXCEPTION: %s' . PHP_EOL, $e->getMessage());
+    printf('BAD COMMAND CALL EXCEPTION: %s' . PHP_EOL, htmlspecialchars($e->getMessage()));
 } catch (\Error $e) {
-    printf('Error: %s' . PHP_EOL, $e->getMessage());
+    printf('Error: %s' . PHP_EOL, htmlspecialchars($e->getMessage()));
 }

@@ -27,7 +27,7 @@ try {
     /** @var Response $response */
     $response = $handler->$action();
 
-    print $response->getBody();
+    print htmlspecialchars($response->getBody());
 
 } catch (ValidationException $e) {
     header('HTTP/1.0 400 Bad Request');
