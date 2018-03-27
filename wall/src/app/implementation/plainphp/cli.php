@@ -20,11 +20,11 @@ try {
 
     print $response->getBody();
 } catch (ValidationException $e) {
-    printf('VALIDATION EXCEPTION: %s' . PHP_EOL, json_encode($e->getMessages()));
+    printf('VALIDATION EXCEPTION: %s', json_encode($e->getMessages()));
 } catch (\InvalidArgumentException $e) {
-    printf('INVALID ARGUMENT EXCEPTION: %s' . PHP_EOL, $e->getMessage());
+    printf('INVALID ARGUMENT EXCEPTION: %s', $e->getMessage());
 } catch (BadCommandCallException $e) {
-    printf('BAD COMMAND CALL EXCEPTION: %s' . PHP_EOL, $e->getMessage());
+    printf('BAD COMMAND CALL EXCEPTION: %s', $e->getMessage());
 } catch (\Error $e) {
-    printf('Error: %s' . PHP_EOL, $e->getMessage());
+    printf('Error: %s', $e->getMessage());
 }
