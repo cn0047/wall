@@ -13,5 +13,7 @@ class MessageCreated implements EventSubscriber
     public function handle(EventInterface $event)
     {
         // Here we can put our user into ES index.
+
+        var_export($event);
     }
 }

@@ -14,5 +14,7 @@ class MessageCreated implements EventSubscriber
     {
         // Here we can perform some related stuff,
         // like create log or stats document in appropriate db collection.
+
+        var_export($event);
     }
 }
