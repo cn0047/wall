@@ -37,7 +37,7 @@ wall
     │   │                                  # with custom logic which is common for all PHP implementations.
     │   │
     │   ├── 🗂 migrations                  # Framework agnostic DB migrations.
-    │   └── var                            # Cache, logs, etc.
+    │   └── 🗂 var                         # Cache, logs, etc.
     │
     ├── 🗂 bin                             # All binary files must be hosted here (artisan, console, migration, etc).
     │
